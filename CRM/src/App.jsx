@@ -1,35 +1,67 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
+import React from "react";
+// import { createRoot } from "react-dom/client";
+import "@/main.scss";
+import { RouterProvider, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
+import { urls } from "./shared/constants/urls.jsx";
+import Layout from "./shared/layout/index.jsx";
+import ErrorPage from "./pages/error-page";
+import { useSelector } from "react-redux";
+
+const Home = React.lazy(() => import("@/pages/Home"));
+const Users = React.lazy(() => import("@/pages/Users"));
+const Teams = React.lazy(() => import("@/pages/Teams"));
+const Projects = React.lazy(() => import("@/pages/Projects"));
+const Reports = React.lazy(() => import("@/pages/Reports"));
+
+const Login = React.lazy(() => import("@/pages/Login"));
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const { user } = useSelector((state) => state.user);
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      //   user ? (<Route path="/" errorElement={<ErrorPage />} element={<Layout />}>
+      //   <Route path="/" element={<Home />} />
+      //   <Route path={urls.USERS} element={<Users />} />
+      //   <Route path={urls.TEAMS} element={<Teams />} />
+      //   <Route path={urls.PROJECTS} element={<Projects />} />
+      //   <Route path={urls.REPORTS} element={<Reports />} />
+
+      // </Route>) : <Route path="*" element={<Login/>}>
+
+      // </Route>
+
+      <>
+        {Object.keys(user || {}).length ? (
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path={urls.USERS} element={<Users />} />
+            <Route path={urls.TEAMS} element={<Teams />} />
+            <Route path={urls.PROJECTS} element={<Projects />} />
+            <Route path={urls.REPORTS} element={<Reports />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Route>
+        ) : (
+          <>
+            <Route path="/" element={<Login />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </>
+        )}
+         <Route path="*" element={<ErrorPage />} />
+      </>
+    )
+  );
 
   return (
     <>
-      {/* <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
