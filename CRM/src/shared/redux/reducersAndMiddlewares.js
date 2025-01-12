@@ -1,14 +1,9 @@
 import { authApi } from "./api/auth";
-import userReducer from "./features/userSlice";
+import authReducer from "./features/authSlice";
 
 export const reducer = {
-    user : userReducer,
-    [authApi.reducerPath]: authApi.reducer,
-
-
-
+  user: authReducer,
+  [authApi.reducerPath]: authApi.reducer,
 };
 
-export const middleWares = [
-  authApi.middleware
-];
+export const middleWares = [authApi.middleware];

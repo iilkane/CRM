@@ -1,4 +1,5 @@
-import React from "react";
+// import React from "react";
+import React, { Suspense } from "react";
 // import { createRoot } from "react-dom/client";
 import "@/main.scss";
 import { RouterProvider, Navigate } from "react-router-dom";
@@ -25,17 +26,6 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      //   user ? (<Route path="/" errorElement={<ErrorPage />} element={<Layout />}>
-      //   <Route path="/" element={<Home />} />
-      //   <Route path={urls.USERS} element={<Users />} />
-      //   <Route path={urls.TEAMS} element={<Teams />} />
-      //   <Route path={urls.PROJECTS} element={<Projects />} />
-      //   <Route path={urls.REPORTS} element={<Reports />} />
-
-      // </Route>) : <Route path="*" element={<Login/>}>
-
-      // </Route>
-
       <>
         {Object.keys(user || {}).length ? (
           <Route path="/" element={<Layout />}>
@@ -52,14 +42,16 @@ function App() {
             <Route path="*" element={<Navigate to="/" />} />
           </>
         )}
-         <Route path="*" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </>
     )
   );
 
   return (
     <>
-      <RouterProvider router={router} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
     </>
   );
 }

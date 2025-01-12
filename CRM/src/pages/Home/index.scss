@@ -1,0 +1,43 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; 
+    gap: 20px;  
+    .column {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        background-color:$color-light-blue-hover;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        height: 150px;
+        .icon-container { 
+            margin-top: 20px;
+            margin-bottom: 10px;         
+            color:$color-dark-blue;
+            margin-left: 15px;
+          }
+          
+      }
+  }
+  
+  
+  .text-container {
+    display: flex;
+    flex-direction: column; 
+  }
+  
+  .title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color:$color-dark-blue ;
+  }
+  
+  .subtitle {
+    font-size: 12px;
+    color: gray;
+  }
+  

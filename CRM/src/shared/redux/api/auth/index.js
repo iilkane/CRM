@@ -1,10 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { APIBaseQuery } from "./axiosBase";
-import {setToken,setUser} from '../features/userSlice'
-
-
-
-
+import { APIBaseQuery } from "../axiosBase";
+import { setToken, setUser } from "../../features/authSlice";
 export const authApi = createApi({
   baseQuery: APIBaseQuery,
 
@@ -13,7 +9,7 @@ export const authApi = createApi({
       query(data) {
         return {
           url: "auth/login",
-          method: "POST", 
+          method: "POST",
           data,
         };
       },
@@ -21,13 +17,14 @@ export const authApi = createApi({
         try {
           const { data } = await queryFulfilled;
           dispatch(setToken(data));
-          await dispatch(authApi.endpoints.getMe.initiate(null))
-        } catch (error) {}
+          await dispatch(authApi.endpoints.getMe.initiate(null));
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
     getMe: builder.query({
       query() {
-      
         return {
           url: "auth/profile",
         };
@@ -37,12 +34,12 @@ export const authApi = createApi({
           const { data } = await queryFulfilled;
           dispatch(setUser(data));
           dispatch(authApi.util.resetApiState());
-
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
   }),
 });
 
-export const { useLoginUserMutation} = authApi;
-
+export const { useLoginUserMutation } = authApi;

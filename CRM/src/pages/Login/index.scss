@@ -1,0 +1,176 @@
+// Global Reset
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+// Sign In Container
+// .signIn {
+//   background-color: $color-light-pink;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100vh;
+// }
+
+// .sign-in-container {
+//   display: flex;
+//   width: 80%;
+//   max-width: 900px;
+//   background-color: white;
+//   border-radius: 8px;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//   overflow: hidden;
+// }
+
+// Left Column (Image)
+// .left-column {
+//   flex: 1;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: #f5f5f5;
+// }
+
+// .left-image {
+//   max-width: 100%;
+//   height: auto;
+// }
+
+// Right Column (Form)
+.right-column {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// Sign-in Title
+.sign-in-title {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+  color: $white;
+}
+
+// Height Utility
+.h-12 {
+  height: 48px;
+}
+
+// Form Styles
+.ant-form-item-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.ant-form-item-control {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+// Button Styles
+.ant-btn.ant-btn-primary.ant-btn-color-primary.ant-btn-variant-solid {
+  background-color: $blue;
+  border-color: $blue;
+
+  &:hover {
+    background-color: $color-light-blue;
+    border-color: $color-light-blue;
+  }
+}
+
+// Checkbox Styles
+.ant-checkbox-wrapper.ant-checkbox-wrapper-in-form-item,
+.ant-checkbox.ant-wave-target {
+  .ant-checkbox-inner {
+    border-color: $color-dark-blue !important;
+    background-color: white !important;
+  }
+
+  &:hover .ant-checkbox-inner {
+    border-color: $color-dark-blue !important;
+    background-color: rgba(255, 105, 180, 0.2) !important;
+  }
+
+  &.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: $color-hover-bright-blue!important;
+  }
+
+  &:focus .ant-checkbox-inner {
+    border-color: $color-hover-bright-blue!important;
+  }
+
+  &.ant-checkbox-input:checked:focus + .ant-checkbox-inner {
+    background-color: $color-hover-bright-blue !important;
+  }
+}
+
+// Input Styles
+.ant-form-item-control-input-content,
+.ant-form-item-control-input,
+.ant-input,
+.ant-row .ant-col,
+.ant-input-affix-wrapper {
+  border-color: $color-hover-bright-blue !important;
+
+  &:hover,
+  &:focus-within {
+    border-color: $color-hover-bright-blue !important;
+  }
+
+  &:focus {
+    border-color: $color-hover-bright-blue !important;
+    box-shadow: 0 0 5px 2px rgba(201, 199, 199, 0.5) !important;
+  }
+}
+
+// Success Input Border Color
+.ant-input-status-success:focus,
+.ant-input-status-success:hover {
+  border-color: $white !important;
+  box-shadow: 0 0 5px 2px rgba(236, 235, 235, 0.675) !important;
+}
+
+// Link Styles
+.link {
+  color: $white;
+  &:hover {
+    color: $color-light-blue;
+  }
+}
+
+// Remember Text Color
+.remember {
+  color: $white;
+}
+
+.signIn {
+  background-image: url("@/assets/Fundo abstrato tecnologia azul _ Vetor Grátis.jpeg"); 
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.sign-in-container {
+  width: 500px;
+  padding: 20px;
+  background-color: rgba(18, 46, 88, 0.2);
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

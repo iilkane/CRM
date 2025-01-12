@@ -1,5 +1,5 @@
 import axios from "axios";
-import { logout, setToken } from "../features/userSlice";
+import { logout, setToken } from "../features/authSlice";
 import { v4 as uuid } from "uuid";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -8,7 +8,7 @@ export const axiosBaseQuery =
   async ({ url, params, method, data, responseType }, { signal, getState }) => {
     try {
       const result = await axios({
-        url: baseUrl + url, 
+        url: baseUrl + url,
         method: method ? method : "GET",
         ...(params && { params: params }),
         ...(headers && { headers: headers({}, { getState, signal }) }),
@@ -28,8 +28,6 @@ export const axiosBaseQuery =
       };
     }
   };
-
-
 
 export const APIBaseQueryInterceptor = axiosBaseQuery({
   baseUrl: baseUrl,
@@ -53,7 +51,6 @@ export const APIBaseQuery = async (args, api, extraOptions) => {
     result.error.status === 401
     // result.error.data?.message === "Unauthorized"
   ) {
-  
     const state = api;
     const userState = state.getState();
     const { user } = userState;

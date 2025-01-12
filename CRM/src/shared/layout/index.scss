@@ -1,8 +1,52 @@
-.ant-layout{
-    min-height: 100vh;
+.ant-layout {
+  min-height: 100vh;
 }
 
-.ant-menu-title-content{
-    margin-left: 30px;
+// .ant-menu-title-content {
+//   margin-left: 30px;
+// }
+
+.ant-btn {
+  border: none;
+  box-shadow: none;
+  background-color: $color-light-blue-hover;
 }
-  
+.button{
+  margin-left: 1200px;
+}
+.ant-btn-icon {
+    color: $color-dark-blue;
+  }
+
+.ant-layout-sider-children {
+  background-color:$color-bright-blue;
+  .logo {
+    color: $white;
+    font-size: 25px;
+    margin: 20px 0 20px 20px;
+  }
+  .ant-menu {
+    background-color: $color-bright-blue;
+    .ant-menu-title-content {
+      font-size: 16px;
+      font-weight: 800px;
+      color: $white;
+    }
+  }
+}
+
+
+.ant-menu-dark .ant-menu-item-selected {
+  background-color: $color-hover-bright-blue;
+}
+
+.ant-layout {
+  background-color: $color-light-blue-hover;
+}
+
+.ant-layout-header {
+  background-color: $color-light-blue-hover;
+}
+.ant-layout-content {
+  background-color: $white;
+}
