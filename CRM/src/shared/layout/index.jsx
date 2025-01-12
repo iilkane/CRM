@@ -11,7 +11,7 @@ const { Header, Sider, Content } = Layout;
 
 const LayoutPage = () => {
   const dispatch = useDispatch();
-  const location = useLocation(); // Konum bilgisini al
+  const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { borderRadiusLG },
