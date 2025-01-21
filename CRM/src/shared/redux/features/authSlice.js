@@ -18,6 +18,7 @@ export const authSlice = createSlice({
     },
     setToken: (state, action) => {
       const { token, refreshToken, expiresAt } = action.payload;
+      console.log(action.payload, "from slice");
       return {
         ...state,
         token,
@@ -38,5 +39,6 @@ export const reducer = persistReducer(
   authSlice.reducer
 );
 
-export default reducer;
 export const { setUser, setToken, logout } = authSlice.actions;
+
+export default reducer;

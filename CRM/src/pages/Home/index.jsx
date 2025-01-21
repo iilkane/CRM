@@ -1,11 +1,33 @@
-import React from "react";
+// import React from "react";
 import { FaUser, FaUsers, FaClipboardList, FaFileAlt } from "react-icons/fa";
-import { Link } from "react-router-dom"; // react-router-dom'dan Link bileşeni
+import { Link } from "react-router-dom"; 
+import { useEffect, useState } from "react";
 
-// urls dosyasını içeri aktar
 import { urls } from "@/shared/constants/urls"; 
+import { mockAPI } from "@/shared/redux/api/data";
 
 const Index = () => {
+  const [usersCount, setUsersCount] = useState(0);
+  const [teamsCount, setTeamsCount] = useState(0);
+  const [projectsCount, setProjectsCount] = useState(0);
+  const [reportsCount, setReportsCount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedUsers = await mockAPI.fetchUsers();
+      const fetchedTeams = await mockAPI.fetchTeams();
+      const fetchedProjects = await mockAPI.fetchProjects();
+      const fetchedReports = await mockAPI.fetchReports();
+
+      setUsersCount(fetchedUsers.length);
+      setTeamsCount(fetchedTeams.length);
+      setProjectsCount(fetchedProjects.length);
+      setReportsCount(fetchedReports.length);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="row">
       {/* Users */}
@@ -15,8 +37,7 @@ const Index = () => {
             <FaUser size={24} />
           </div>
           <div className="text-container">
-            <span className="title">Users</span>
-            <span className="subtitle">Welcome</span>
+            <span className="title">Users ({usersCount})</span>
           </div>
         </Link>
       </div>
@@ -28,8 +49,7 @@ const Index = () => {
             <FaUsers size={24} />
           </div>
           <div className="text-container">
-            <span className="title">Teams</span>
-            <span className="subtitle">Manage teams</span>
+            <span className="title">Teams ({teamsCount})</span>
           </div>
         </Link>
       </div>
@@ -41,8 +61,7 @@ const Index = () => {
             <FaClipboardList size={24} />
           </div>
           <div className="text-container">
-            <span className="title">Projects</span>
-            <span className="subtitle">Track progress</span>
+            <span className="title">Projects ({projectsCount})</span>
           </div>
         </Link>
       </div>
@@ -54,8 +73,7 @@ const Index = () => {
             <FaFileAlt size={24} />
           </div>
           <div className="text-container">
-            <span className="title">Reports</span>
-            <span className="subtitle">Generate insights</span>
+            <span className="title">Reports ({reportsCount})</span>
           </div>
         </Link>
       </div>

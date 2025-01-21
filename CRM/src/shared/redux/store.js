@@ -1,4 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+// import userReducer from "./features/userSlice";
+// import teamReducer from "./features/teamSlice";
+// import reportReducer from "./features/reportSlice";
+// import projectReducer from "./features/projectSlice";
 import {
   FLUSH,
   REHYDRATE,
@@ -11,7 +15,7 @@ import {
 import { middleWares, reducer } from "./reducersAndMiddlewares";
 
 export const store = configureStore({
-  reducer,
+  reducer: reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

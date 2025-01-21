@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom"; 
-import { MenuFoldOutlined, MenuUnfoldOutlined, HomeOutlined, UserOutlined, TeamOutlined, ProjectOutlined, FileOutlined, LogoutOutlined } from "@ant-design/icons";
+import { useLocation } from "react-router-dom";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  HomeOutlined,
+  UserOutlined,
+  TeamOutlined,
+  ProjectOutlined,
+  FileOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import { Button, Layout, Menu, theme, ConfigProvider } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
 import { logout } from "../redux/features/authSlice";
@@ -17,6 +26,34 @@ const LayoutPage = () => {
     token: { borderRadiusLG },
   } = theme.useToken();
 
+  const items = [
+    {
+      label: <NavLink to={urls.Home}>Home</NavLink>,
+      icon: <HomeOutlined />,
+      key: "/",
+    },
+    {
+      label: <NavLink to={urls.USERS}>Users</NavLink>,
+      icon: <UserOutlined />,
+      key: "/users",
+    },
+    {
+      label: <NavLink to={urls.TEAMS}>Teams</NavLink>,
+      icon: <TeamOutlined />,
+      key: "/teams",
+    },
+    {
+      label: <NavLink to={urls.PROJECTS}>Projects</NavLink>,
+      icon: <ProjectOutlined />,
+      key: "/projects",
+    },
+    {
+      label: <NavLink to={urls.REPORTS}>Reports</NavLink>,
+      icon: <FileOutlined />,
+      key: "/reports",
+    },
+  ];
+
   return (
     <ConfigProvider>
       <Layout>
@@ -26,25 +63,10 @@ const LayoutPage = () => {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={[location.pathname]} 
+            items={items}
+            defaultSelectedKeys={[location.pathname]}
             selectedKeys={[location.pathname]}
-          >
-            <Menu.Item key={urls.Home} icon={<HomeOutlined />}>
-              <NavLink to={urls.Home}>Home</NavLink>
-            </Menu.Item>
-            <Menu.Item key={urls.USERS} icon={<UserOutlined />}>
-              <NavLink to={urls.USERS}>Users</NavLink>
-            </Menu.Item>
-            <Menu.Item key={urls.TEAMS} icon={<TeamOutlined />}>
-              <NavLink to={urls.TEAMS}>Teams</NavLink>
-            </Menu.Item>
-            <Menu.Item key={urls.PROJECTS} icon={<ProjectOutlined />}>
-              <NavLink to={urls.PROJECTS}>Projects</NavLink>
-            </Menu.Item>
-            <Menu.Item key={urls.REPORTS} icon={<FileOutlined />}>
-              <NavLink to={urls.REPORTS}>Reports</NavLink>
-            </Menu.Item>
-          </Menu>
+          />
         </Sider>
         <Layout>
           <Header
@@ -62,7 +84,11 @@ const LayoutPage = () => {
                 height: 64,
               }}
             />
-            <Button className="button" icon={<LogoutOutlined />} onClick={() => dispatch(logout())}></Button>
+            <Button
+              className="button"
+              icon={<LogoutOutlined />}
+              onClick={() => dispatch(logout())}
+            ></Button>
           </Header>
           <Content
             style={{

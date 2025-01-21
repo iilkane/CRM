@@ -1,11 +1,9 @@
-// Global Reset
 * {
   padding: 0;
   margin: 0;
   border: none;
 }
 
-// Right Column (Form)
 .right-column {
   flex: 1;
   padding: 40px;
@@ -14,7 +12,6 @@
   justify-content: center;
 }
 
-// Sign-in Title
 .sign-in-title {
   font-size: 50px;
   font-weight: bold;
@@ -23,12 +20,10 @@
   color: $white;
 }
 
-// Height Utility
 .h-12 {
   height: 48px;
 }
 
-// Form Styles
 .ant-form-item-row {
   display: flex;
   justify-content: center;
@@ -42,7 +37,6 @@
   margin: 0 auto;
 }
 
-// Button Styles
 .ant-btn.ant-btn-primary.ant-btn-color-primary.ant-btn-variant-solid {
   background-color: $blue;
   border-color: $blue;
@@ -53,7 +47,6 @@
   }
 }
 
-// Checkbox Styles
 .ant-checkbox-wrapper.ant-checkbox-wrapper-in-form-item,
 .ant-checkbox.ant-wave-target {
   .ant-checkbox-inner {
@@ -67,11 +60,11 @@
   }
 
   &.ant-checkbox-checked .ant-checkbox-inner {
-    background-color: $color-hover-bright-blue!important;
+    background-color: $color-hover-bright-blue !important;
   }
 
   &:focus .ant-checkbox-inner {
-    border-color: $color-hover-bright-blue!important;
+    border-color: $color-hover-bright-blue !important;
   }
 
   &.ant-checkbox-input:checked:focus + .ant-checkbox-inner {
@@ -79,7 +72,6 @@
   }
 }
 
-// Input Styles
 .ant-form-item-control-input-content,
 .ant-form-item-control-input,
 .ant-input,
@@ -98,14 +90,12 @@
   }
 }
 
-// Success Input Border Color
 .ant-input-status-success:focus,
 .ant-input-status-success:hover {
   border-color: $white !important;
   box-shadow: 0 0 5px 2px rgba(236, 235, 235, 0.675) !important;
 }
 
-// Link Styles
 .link {
   color: $white;
   &:hover {
@@ -113,18 +103,17 @@
   }
 }
 
-// Remember Text Color
 .remember {
   color: $white;
 }
 
 .signIn {
-  background-image: url("@/assets/Fundo abstrato tecnologia azul _ Vetor Grátis.jpeg"); 
+  background-image: url("@/assets/Fundo abstrato tecnologia azul _ Vetor Grátis.jpeg");
   background-size: cover;
   background-position: center;
   height: 100vh;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
 }
 

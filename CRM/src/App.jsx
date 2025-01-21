@@ -1,6 +1,4 @@
-// import React from "react";
 import React, { Suspense } from "react";
-// import { createRoot } from "react-dom/client";
 import "@/main.scss";
 import { RouterProvider, Navigate } from "react-router-dom";
 import {
@@ -22,12 +20,12 @@ const Reports = React.lazy(() => import("@/pages/Reports"));
 const Login = React.lazy(() => import("@/pages/Login"));
 
 function App() {
-  const { user } = useSelector((state) => state.user);
+  const { token } = useSelector((state) => state.auth);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        {Object.keys(user || {}).length ? (
+        {token ? (
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path={urls.USERS} element={<Users />} />

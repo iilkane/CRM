@@ -1,0 +1,45 @@
+// .user-page {
+//   .ant-btn {
+//     margin-bottom: 20px;
+//   }
+// }
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.ant-btn {
+    margin-bottom: 20px;
+  }
+
+.ant-space-item {
+  background-color: none;
+  .ant-btn {
+    background-color: $color-hover-bright-blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid #ffffff;
+    .anticon-eye {
+      color: white;
+    }
+
+    .anticon-delete {
+      color: red;
+    }
+
+    .anticon-edit {
+      color: yellow;
+    }
+    &:hover {
+      background-color: darkblue;
+      border-color: darkblue;
+
+      .anticon {
+        color: $color-hover-bright-blue; //
+      }
+    }
+  }
+}
+

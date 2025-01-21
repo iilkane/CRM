@@ -32,11 +32,10 @@ export const axiosBaseQuery =
 export const APIBaseQueryInterceptor = axiosBaseQuery({
   baseUrl: baseUrl,
   headers: (headers, { getState }) => {
-    const {
-      user: { token },
-    } = getState();
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
+    const { auth } = getState();
+    console.log(auth.token);
+    if (auth?.token) {
+      headers["Authorization"] = `Bearer ${auth.token}`;
     }
     headers["x-requestid"] = uuid();
     return headers;
