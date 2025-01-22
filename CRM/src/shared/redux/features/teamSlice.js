@@ -63,7 +63,10 @@ const teamSlice = createSlice({
           (team) => team.id === action.payload.id
         );
         if (index !== -1) {
-          state.teams[index] = { ...state.teams[index], name: action.payload.name };
+          state.teams[index] = {
+            ...state.teams[index],
+            name: action.payload.name,
+          };
         }
       })
       .addCase(editTeam.rejected, (state, action) => {

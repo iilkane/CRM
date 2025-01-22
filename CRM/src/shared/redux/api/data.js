@@ -38,58 +38,54 @@ let reports = JSON.parse(localStorage.getItem("reports")) || [
 
 export const mockAPI = {
   fetchUsers: async () => {
-    return new Promise((resolve) => setTimeout(() => resolve(users), 0));
+    return new Promise((resolve) => setTimeout(() => resolve([...users]), 0)); // Ensure immutability
   },
 
   addUser: async (user) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        user.id = Date.now(); 
-        users.push(user);
-        if (user.teamId) {
-          teams = teams.map((team) => {
-            if (team.id === user.teamId) {
-              return { ...team, userIds: [...team.userIds, user.id] };
-            }
-            return team;
-          });
+        const newUser = { ...user, id: Date.now() }; // Avoid mutating the input directly
+        users = [...users, newUser];
+        localStorage.setItem("users", JSON.stringify(users));
+        // Create a new array with the new user
+        if (newUser.teamId) {
+          teams = teams.map((team) =>
+            team.id === newUser.teamId
+              ? { ...team, userIds: [...team.userIds, newUser.id] }
+              : team
+          );
           localStorage.setItem("teams", JSON.stringify(teams));
         }
-  
         localStorage.setItem("users", JSON.stringify(users));
-        resolve(user);
+        //  mail , if user.mail = users.includes throw Error
+        resolve(newUser);
       }, 500);
     });
   },
-  
 
   editUser: async (user) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const existingUser = users.find((u) => u.id === user.id);
-
-        if (existingUser && existingUser.teamId !== user.teamId) {
-          teams = teams.map((team) => {
-            if (team.id === existingUser.teamId) {
+        users = users.map((u) => (u.id === user.id ? { ...u, ...user } : u)); // Use immutability
+        if (user?.teamId) {
+          // Update teams
+          teams = teams?.map((team) => {
+            if (team?.userIds?.includes(user?.id)) {
               return {
                 ...team,
-                userIds: team.userIds.filter((id) => id !== user.id),
+                userIds: team?.userIds?.filter((id) => id !== user?.id),
               };
             }
             return team;
           });
-
-          teams = teams.map((team) => {
-            if (team.id === user.teamId) {
-              return { ...team, userIds: [...team.userIds, user.id] };
-            }
-            return team;
-          });
+          teams = teams?.map((team) =>
+            team?.id === user.teamId
+              ? { ...team, userIds: [...team.userIds, user.id] }
+              : team
+          );
         }
-
-        users = users.map((u) => (u.id === user.id ? user : u));
         localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("teams", JSON.stringify(teams)); // Persist teams
+        localStorage.setItem("teams", JSON.stringify(teams));
         resolve(user);
       }, 500);
     });
@@ -99,19 +95,13 @@ export const mockAPI = {
     return new Promise((resolve) => {
       setTimeout(() => {
         const userToDelete = users.find((u) => u.id === id);
-
         if (userToDelete && userToDelete.teamId) {
-          teams = teams.map((team) => {
-            if (team.id === userToDelete.teamId) {
-              return {
-                ...team,
-                userIds: team.userIds.filter((uid) => uid !== id),
-              };
-            }
-            return team;
-          });
+          teams = teams?.map((team) =>
+            team.id === userToDelete?.teamId
+              ? { ...team, userIds: team?.userIds?.filter((uid) => uid !== id) }
+              : team
+          );
         }
-
         users = users.filter((u) => u.id !== id);
         localStorage.setItem("users", JSON.stringify(users));
         localStorage.setItem("teams", JSON.stringify(teams));
@@ -120,15 +110,17 @@ export const mockAPI = {
     });
   },
 
-  // TEAMS
+  fetchTeams: async () => {
+    return new Promise((resolve) => setTimeout(() => resolve([...teams]), 0));
+  },
 
   addTeam: async (team) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        team.id = Date.now();
-        teams.push(team);
+        const newTeam = { ...team, id: Date.now(), userIds: [] };
+        teams = [...teams, newTeam];
         localStorage.setItem("teams", JSON.stringify(teams));
-        resolve(team);
+        resolve(newTeam);
       }, 500);
     });
   },
@@ -136,7 +128,7 @@ export const mockAPI = {
   editTeam: async (team) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        teams = teams.map((t) => (t.id === team.id ? team : t));
+        teams = teams.map((t) => (t.id === team.id ? { ...t, ...team } : t));
         localStorage.setItem("teams", JSON.stringify(teams));
         resolve(team);
       }, 500);
@@ -147,14 +139,12 @@ export const mockAPI = {
     return new Promise((resolve) => {
       setTimeout(() => {
         teams = teams.filter((team) => team.id !== id);
-
         users = users.map((user) => {
           if (user.teamId === id) {
             return { ...user, teamId: null };
           }
           return user;
         });
-
         localStorage.setItem("teams", JSON.stringify(teams));
         localStorage.setItem("users", JSON.stringify(users));
         resolve(id);
@@ -162,13 +152,19 @@ export const mockAPI = {
     });
   },
 
+  fetchProjects: async () => {
+    return new Promise((resolve) =>
+      setTimeout(() => resolve([...projects]), 0)
+    );
+  },
+
   addProject: async (project) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        project.id = Date.now();
-        projects.push(project);
+        const newProject = { ...project, id: Date.now() };
+        projects = [...projects, newProject];
         localStorage.setItem("projects", JSON.stringify(projects));
-        resolve(project);
+        resolve(newProject);
       }, 500);
     });
   },
@@ -176,20 +172,31 @@ export const mockAPI = {
   editProject: async (project) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        projects = projects.map((p) => (p.id === project.id ? project : p));
+        projects = projects.map((p) =>
+          p.id === project.id ? { ...p, ...project } : p
+        );
         localStorage.setItem("projects", JSON.stringify(projects));
         resolve(project);
       }, 500);
     });
   },
 
+  fetchReports: async () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([...reports]);
+      }, 0);
+    });
+  },
+
   addReport: async (report) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        report.id = Date.now();
-        reports.push(report);
+        const newReport = { ...report, id: Date.now() };
+
+        reports = [...reports, newReport];
         localStorage.setItem("reports", JSON.stringify(reports));
-        resolve(report);
+        resolve(newReport);
       }, 500);
     });
   },
@@ -197,22 +204,12 @@ export const mockAPI = {
   editReport: async (report) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        reports = reports.map((r) => (r.id === report.id ? report : r));
+        reports = reports.map((r) =>
+          r.id === report.id ? { ...r, ...report } : r
+        );
         localStorage.setItem("reports", JSON.stringify(reports));
         resolve(report);
       }, 500);
     });
-  },
-
-  fetchTeams: async () => {
-    return new Promise((resolve) => setTimeout(() => resolve(teams), 0));
-  },
-
-  fetchReports: async () => {
-    return new Promise((resolve) => setTimeout(() => resolve(reports), 0));
-  },
-
-  fetchProjects: async () => {
-    return new Promise((resolve) => setTimeout(() => resolve(projects), 0));
   },
 };

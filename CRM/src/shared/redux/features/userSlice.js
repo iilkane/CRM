@@ -54,8 +54,17 @@ const userSlice = createSlice({
       })
 
       // Edit User
+      // .addCase(editUser.fulfilled, (state, action) => {
+      //   const index = state.users.findIndex((u) => u.id === action.payload.id);
+      //   if (index !== -1) {
+      //     state.users[index] = action.payload;
+      //   }
+      // })
+
       .addCase(editUser.fulfilled, (state, action) => {
-        const index = state.users.findIndex((u) => u.id === action.payload.id);
+        const index = state?.users?.findIndex(
+          (u) => u.id === action?.payload?.id
+        );
         if (index !== -1) {
           state.users[index] = action.payload;
         }

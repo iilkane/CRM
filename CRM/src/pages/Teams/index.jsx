@@ -1,105 +1,64 @@
 import { useEffect, useState } from "react";
-import {
-  Table,
-  Button,
-  Modal,
-  Form,
-  Input,
-  Space,
-  Tooltip,
-  Pagination,
-} from "antd";
+import { Table, Button, Space, Tooltip, Pagination, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchTeams,
-  addTeam,
-  editTeam,
-  deleteTeam,
-} from "../../shared/redux/features/teamSlice";
-import { mockAPI } from "../../shared/redux/api/data";
+import { fetchTeams, deleteTeam } from "../../shared/redux/features/teamSlice";
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import AddTeam from "./Modal/AddTeam";
+import EditTeam from "./Modal/EditTeam";
+import ShowTeam from "./Modal/ShowTeam"; // Import ShowTeam component
+import { mockAPI } from "../../shared/redux/api/data";
 
 const Index = () => {
   const dispatch = useDispatch();
   const teams = useSelector((state) => state.team.teams);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isShowModalVisible, setIsShowModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isShowModalVisible, setIsShowModalVisible] = useState(false); // State for Show Modal
   const [currentTeam, setCurrentTeam] = useState(null);
-  const [users, setUsers] = useState([]); // Kullanıcıları saklamak için state
-  const [form] = Form.useForm();
+  const [users, setUsers] = useState([]); // To store users for the team
 
-  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(4);
+  const pageSize = 4;
 
-  // Fetch teams and users
   useEffect(() => {
     dispatch(fetchTeams());
     const fetchUsers = async () => {
       const fetchedUsers = await mockAPI.fetchUsers();
-      setUsers(fetchedUsers); // Kullanıcıları state'e ekle
+      setUsers(fetchedUsers); // Store users for team management
     };
     fetchUsers();
   }, [dispatch]);
 
-  // Yeni takım ekleme
   const handleAddTeam = () => {
     setCurrentTeam(null);
-    form.resetFields(); // Formu sıfırla
-    setIsModalVisible(true);
+    setIsModalVisible(true); // Open the Add Team modal
   };
 
-  // Mevcut takımı düzenleme
   const handleEditTeam = (team) => {
     setCurrentTeam(team);
-    form.setFieldsValue({ name: team.name }); // Sadece takım adını formda göster
-    setIsModalVisible(true);
+    setIsEditModalVisible(true); // Open the Edit Team modal
   };
 
-  // Takımı silme
   const handleDeleteTeam = (team) => {
     setCurrentTeam(team);
-    setIsDeleteModalVisible(true);
+    setIsDeleteModalVisible(true); // Open the Delete Team modal
+  };
+
+  const handleShowTeam = (team) => {
+    setCurrentTeam(team);
+    setIsShowModalVisible(true); // Open the Show Team modal
   };
 
   const handleDeleteConfirm = () => {
     if (currentTeam) {
-      dispatch(deleteTeam(currentTeam.id));
+      dispatch(deleteTeam(currentTeam.id)); // Delete the team
     }
-    setIsDeleteModalVisible(false);
+    setIsDeleteModalVisible(false); // Close delete modal
   };
 
-  // Takım detaylarını gösterme
-  const handleShowTeam = (team) => {
-    setCurrentTeam(team);
-    setIsShowModalVisible(true);
-  };
-
-  // Modal submit işlemi
-  const handleOk = () => {
-    form.validateFields().then((values) => {
-      const { name } = values;
-
-      if (currentTeam) {
-        // Mevcut takımı düzenle (userIds değiştirme)
-        dispatch(editTeam({ ...currentTeam, name }));
-      } else {
-        // Yeni takım oluştur (userIds değiştirme)
-        dispatch(addTeam({ name }));
-      }
-
-      setIsModalVisible(false);
-    });
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  // Pagination handler
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    setCurrentPage(page); // Change the page for pagination
   };
 
   const paginatedTeams = teams.slice(
@@ -114,7 +73,10 @@ const Index = () => {
       render: (_, team) => (
         <Space>
           <Tooltip title="Show">
-            <Button icon={<EyeOutlined />} onClick={() => handleShowTeam(team)} />
+            <Button
+              icon={<EyeOutlined />}
+              onClick={() => handleShowTeam(team)} // Open the Show Team modal
+            />
           </Tooltip>
           <Tooltip title="Delete">
             <Button
@@ -147,71 +109,54 @@ const Index = () => {
         pagination={false}
       />
 
-      {/* Pagination Component */}
-      <div className="pagination-container">
-        <Pagination
-          current={currentPage}
-          pageSize={pageSize}
-          total={teams.length}
-          onChange={handlePageChange}
-          showSizeChanger={false}
-        />
-      </div>
+      {/* Pagination */}
+      <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={teams.length}
+        onChange={handlePageChange}
+        showSizeChanger={false}
+        style={{ textAlign: "right", marginTop: "20px" }} // Align pagination to the right
+      />
 
-      {/* Modal for adding/editing team */}
-      <Modal
-        title={currentTeam ? "Edit Team" : "Add Team"}
+      {/* Add Team Modal */}
+      <AddTeam
         visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Form form={form} layout="vertical">
-          <Form.Item
-            name="name"
-            label="Team Name"
-            rules={[{ required: true, message: "Team Name is required" }]}>
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
+        onCancel={() => setIsModalVisible(false)}
+      />
 
-      {/* Show Modal for team details */}
-      <Modal
-        title="Team Details"
+      {/* Edit Team Modal */}
+      <EditTeam
+        visible={isEditModalVisible}
+        onCancel={() => setIsEditModalVisible(false)}
+        team={currentTeam}
+      />
+
+      {/* Show Team Modal */}
+      <ShowTeam
         visible={isShowModalVisible}
         onCancel={() => setIsShowModalVisible(false)}
-        footer={<Button onClick={() => setIsShowModalVisible(false)}>Close</Button>}
-      >
-        <p>
-          <strong>Team Name:</strong> {currentTeam?.name}
-        </p>
-        <p>
-          <strong>Users:</strong>{" "}
-          {currentTeam?.userIds
-            ?.map((userId) => {
-              const user = users.find((u) => u.id === userId);
-              return user ? `${user.firstName} ${user.lastName}` : null;
-            })
-            .join(", ")}
-        </p>
-      </Modal>
+        team={currentTeam}
+        users={users}
+      />
 
-      {/* Delete Modal */}
+      {/* Delete Confirmation Modal */}
       <Modal
         title="Are you sure to delete this team?"
-        visible={isDeleteModalVisible}
+        open={isDeleteModalVisible}
         onCancel={() => setIsDeleteModalVisible(false)}
-        footer={
-          <>
-            <Button onClick={() => setIsDeleteModalVisible(false)}>Cancel</Button>
-            <Button
-              style={{ backgroundColor: "red", color: "white", border: "none" }}
-              onClick={handleDeleteConfirm}
-            >
-              Delete
-            </Button>
-          </>
-        }
+        footer={[
+          <Button onClick={() => setIsDeleteModalVisible(false)} key="cancel">
+            Cancel
+          </Button>,
+          <Button
+            style={{ backgroundColor: "red", color: "white", border: "none" }}
+            onClick={handleDeleteConfirm}
+            key="delete"
+          >
+            Delete
+          </Button>,
+        ]}
       >
         <p>Do you really want to delete this team?</p>
       </Modal>
