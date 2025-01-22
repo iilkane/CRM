@@ -59,7 +59,7 @@ const projectSlice = createSlice({
       })
       .addCase(addProject.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.projects.push(action.payload); // Add the newly created project to the list
+        state.projects.push(action.payload);
       })
       .addCase(addProject.rejected, (state, action) => {
         state.status = "failed";

@@ -21,7 +21,7 @@ const EditProject = ({ visible, onCancel, currentProject }) => {
     form.validateFields().then((values) => {
       const { projectName, userIds } = values;
       dispatch(editProject({ ...currentProject, projectName, userIds }));
-      onCancel(); // Close modal after editing
+      onCancel();
     });
   };
 

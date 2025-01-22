@@ -8,10 +8,10 @@ const AddTeam = ({ visible, onCancel }) => {
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      dispatch(addTeam(values)); // Dispatch the add team action with form data
+      dispatch(addTeam(values));
       console.log(values);
-      form.resetFields(); // Reset the form after successful submission
-      onCancel(); // Close the modal after submission
+      form.resetFields();
+      onCancel(); 
     });
   };
 

@@ -5,7 +5,7 @@ import { fetchTeams, deleteTeam } from "../../shared/redux/features/teamSlice";
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import AddTeam from "./Modal/AddTeam";
 import EditTeam from "./Modal/EditTeam";
-import ShowTeam from "./Modal/ShowTeam"; // Import ShowTeam component
+import ShowTeam from "./Modal/ShowTeam";
 import { mockAPI } from "../../shared/redux/api/data";
 
 const Index = () => {
@@ -14,9 +14,9 @@ const Index = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-  const [isShowModalVisible, setIsShowModalVisible] = useState(false); // State for Show Modal
+  const [isShowModalVisible, setIsShowModalVisible] = useState(false);
   const [currentTeam, setCurrentTeam] = useState(null);
-  const [users, setUsers] = useState([]); // To store users for the team
+  const [users, setUsers] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4;
@@ -25,40 +25,40 @@ const Index = () => {
     dispatch(fetchTeams());
     const fetchUsers = async () => {
       const fetchedUsers = await mockAPI.fetchUsers();
-      setUsers(fetchedUsers); // Store users for team management
+      setUsers(fetchedUsers);
     };
     fetchUsers();
   }, [dispatch]);
 
   const handleAddTeam = () => {
     setCurrentTeam(null);
-    setIsModalVisible(true); // Open the Add Team modal
+    setIsModalVisible(true);
   };
 
   const handleEditTeam = (team) => {
     setCurrentTeam(team);
-    setIsEditModalVisible(true); // Open the Edit Team modal
+    setIsEditModalVisible(true);
   };
 
   const handleDeleteTeam = (team) => {
     setCurrentTeam(team);
-    setIsDeleteModalVisible(true); // Open the Delete Team modal
+    setIsDeleteModalVisible(true);
   };
 
   const handleShowTeam = (team) => {
     setCurrentTeam(team);
-    setIsShowModalVisible(true); // Open the Show Team modal
+    setIsShowModalVisible(true);
   };
 
   const handleDeleteConfirm = () => {
     if (currentTeam) {
-      dispatch(deleteTeam(currentTeam.id)); // Delete the team
+      dispatch(deleteTeam(currentTeam.id));
     }
-    setIsDeleteModalVisible(false); // Close delete modal
+    setIsDeleteModalVisible(false);
   };
 
   const handlePageChange = (page) => {
-    setCurrentPage(page); // Change the page for pagination
+    setCurrentPage(page); 
   };
 
   const paginatedTeams = teams.slice(
@@ -75,7 +75,7 @@ const Index = () => {
           <Tooltip title="Show">
             <Button
               icon={<EyeOutlined />}
-              onClick={() => handleShowTeam(team)} // Open the Show Team modal
+              onClick={() => handleShowTeam(team)} 
             />
           </Tooltip>
           <Tooltip title="Delete">
@@ -116,7 +116,7 @@ const Index = () => {
         total={teams.length}
         onChange={handlePageChange}
         showSizeChanger={false}
-        style={{ textAlign: "right", marginTop: "20px" }} // Align pagination to the right
+        style={{ textAlign: "right", marginTop: "20px" }} 
       />
 
       {/* Add Team Modal */}

@@ -43,7 +43,7 @@ const Index = () => {
 
   const handleAddReport = () => {
     setCurrentReport(null);
-    form.resetFields(); // Reset form fields for "Add Report"
+    form.resetFields();
     setIsModalVisible(true);
   };
 
@@ -65,7 +65,7 @@ const Index = () => {
     form.validateFields().then((values) => {
       const reportData = {
         ...values,
-        createDate: values.createDate ? values.createDate.toISOString() : null, // Convert dayjs to string
+        createDate: values.createDate ? values.createDate.toISOString() : null,
       };
 
       if (currentReport) {
@@ -102,7 +102,7 @@ const Index = () => {
       title: "Create Date",
       dataIndex: "createDate",
       key: "createDate",
-      render: (text) => dayjs(text).format("YYYY-MM-DD"), // Convert string to dayjs for display
+      render: (text) => dayjs(text).format("YYYY-MM-DD"),
     },
     { title: "Project Name", dataIndex: "projectName", key: "projectName" },
     {

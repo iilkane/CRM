@@ -12,7 +12,7 @@ const AddProject = ({ visible, onCancel }) => {
       const { projectName, userIds } = values;
       dispatch(addProject({ projectName, userIds }));
       form.resetFields();
-      onCancel(); // Close modal after adding
+      onCancel();
     });
   };
 

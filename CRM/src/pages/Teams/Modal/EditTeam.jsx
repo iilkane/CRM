@@ -9,14 +9,14 @@ const EditTeam = ({ visible, onCancel, team }) => {
 
   useEffect(() => {
     if (team) {
-      form.setFieldsValue({ name: team.name }); // Pre-fill the form with team details
+      form.setFieldsValue({ name: team.name });
     }
   }, [team, form]);
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      dispatch(editTeam({ ...team, ...values })); // Dispatch edit team action with updated data
-      onCancel(); // Close modal after successful edit
+      dispatch(editTeam({ ...team, ...values })); 
+      onCancel();
     });
   };
 

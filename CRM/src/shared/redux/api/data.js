@@ -38,16 +38,15 @@ let reports = JSON.parse(localStorage.getItem("reports")) || [
 
 export const mockAPI = {
   fetchUsers: async () => {
-    return new Promise((resolve) => setTimeout(() => resolve([...users]), 0)); // Ensure immutability
+    return new Promise((resolve) => setTimeout(() => resolve([...users]), 0));
   },
 
   addUser: async (user) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const newUser = { ...user, id: Date.now() }; // Avoid mutating the input directly
+        const newUser = { ...user, id: Date.now() };
         users = [...users, newUser];
         localStorage.setItem("users", JSON.stringify(users));
-        // Create a new array with the new user
         if (newUser.teamId) {
           teams = teams.map((team) =>
             team.id === newUser.teamId
@@ -57,7 +56,7 @@ export const mockAPI = {
           localStorage.setItem("teams", JSON.stringify(teams));
         }
         localStorage.setItem("users", JSON.stringify(users));
-        //  mail , if user.mail = users.includes throw Error
+        
         resolve(newUser);
       }, 500);
     });
@@ -66,9 +65,8 @@ export const mockAPI = {
   editUser: async (user) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        users = users.map((u) => (u.id === user.id ? { ...u, ...user } : u)); // Use immutability
+        users = users.map((u) => (u.id === user.id ? { ...u, ...user } : u)); 
         if (user?.teamId) {
-          // Update teams
           teams = teams?.map((team) => {
             if (team?.userIds?.includes(user?.id)) {
               return {

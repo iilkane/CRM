@@ -47,7 +47,7 @@ const teamSlice = createSlice({
       })
       .addCase(addTeam.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.teams.push(action.payload); // Add the newly created team to the list
+        state.teams.push(action.payload);
       })
       .addCase(addTeam.rejected, (state, action) => {
         state.status = "failed";
