@@ -1,9 +1,14 @@
-
 import { Modal, Form, Input, Select, DatePicker } from "antd";
-import dayjs from 'dayjs';
-import PropTypes from 'prop-types';
+import dayjs from "dayjs";
 
-const AddReport = ({ isModalVisible, form, handleOk, handleCancel, users, projects }) => {
+const AddReport = ({
+  isModalVisible,
+  form,
+  handleOk,
+  handleCancel,
+  users,
+  projects,
+}) => {
   return (
     <Modal
       title="Add Report"
@@ -39,8 +44,14 @@ const AddReport = ({ isModalVisible, form, handleOk, handleCancel, users, projec
         >
           <DatePicker
             style={{ width: "100%" }}
-            value={form.getFieldValue('createDate') ? dayjs(form.getFieldValue('createDate')) : null}
-            onChange={(date) => form.setFieldsValue({ createDate: date ? date : null })}
+            value={
+              form.getFieldValue("createDate")
+                ? dayjs(form.getFieldValue("createDate"))
+                : null
+            }
+            onChange={(date) =>
+              form.setFieldsValue({ createDate: date ? date : null })
+            }
           />
         </Form.Item>
         <Form.Item
@@ -61,22 +72,4 @@ const AddReport = ({ isModalVisible, form, handleOk, handleCancel, users, projec
   );
 };
 
-AddReport.propTypes = {
-  isModalVisible: PropTypes.bool.isRequired,
-  form: PropTypes.object.isRequired,
-  handleOk: PropTypes.func.isRequired,
-  handleCancel: PropTypes.func.isRequired,
-  users: PropTypes.array.isRequired,
-  projects: PropTypes.array.isRequired,
-};
-
-// bunu silersen
-
 export default AddReport;
-
-
-
-
-
-
-

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Modal, Form, Input, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { addProject } from "../../../shared/redux/features/projectSlice";
@@ -51,12 +50,6 @@ const AddProject = ({ visible, onCancel }) => {
       </Form>
     </Modal>
   );
-};
-
-// Prop Types validation
-AddProject.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  onCancel: PropTypes.func.isRequired,
 };
 
 export default AddProject;

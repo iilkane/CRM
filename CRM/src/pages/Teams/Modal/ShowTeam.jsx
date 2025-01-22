@@ -1,5 +1,4 @@
 import { Modal, Button } from "antd";
-import PropTypes from "prop-types";
 
 const ShowTeam = ({ visible, onCancel, team, users }) => {
   return (
@@ -25,12 +24,4 @@ const ShowTeam = ({ visible, onCancel, team, users }) => {
   );
 };
 
-ShowTeam.propTypes = {
-  visible: PropTypes.bool.isRequired, 
-  onCancel: PropTypes.func.isRequired, 
-  team: PropTypes.object,
-  users: PropTypes.array.isRequired, 
-};
-
 export default ShowTeam;
-

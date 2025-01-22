@@ -89,12 +89,4 @@ const AddUser = ({ isModalVisible, onCancel, teams }) => {
   );
 };
 
-// AddUser.propTypes = {
-//   isModalVisible: PropTypes.bool.isRequired,
-//   onCancel: PropTypes.func.isRequired,
-//   teams: PropTypes.array.isRequired,
-// };
-
 export default AddUser;
-
-//  bu nedi a :D

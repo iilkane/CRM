@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import PropTypes from "prop-types";
 import { Modal, Form, Input, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { editProject } from "../../../shared/redux/features/projectSlice";
@@ -60,13 +59,6 @@ const EditProject = ({ visible, onCancel, currentProject }) => {
       </Form>
     </Modal>
   );
-};
-
-// Prop Types validation
-EditProject.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  currentProject: PropTypes.object,
 };
 
 export default EditProject;

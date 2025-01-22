@@ -1,7 +1,6 @@
 import { Form, Input, Modal, Select } from "antd";
 import { useDispatch } from "react-redux";
 import { editUser } from "../../../shared/redux/features/userSlice";
-import PropTypes from "prop-types";
 
 const { Option } = Select;
 
@@ -67,14 +66,6 @@ const EditUser = ({ isModalVisible, onCancel, currentUser, teams }) => {
       </Form>
     </Modal>
   );
-};
-
-
-EditUser.propTypes = {
-  isModalVisible: PropTypes.bool.isRequired, 
-  onCancel: PropTypes.func.isRequired, 
-  currentUser: PropTypes.object.isRequired, 
-  teams: PropTypes.array.isRequired, 
 };
 
 export default EditUser;

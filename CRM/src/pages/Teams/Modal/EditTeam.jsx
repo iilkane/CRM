@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Modal, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { editTeam } from "../../../shared/redux/features/teamSlice";
-import PropTypes from "prop-types";
 
 const EditTeam = ({ visible, onCancel, team }) => {
   const dispatch = useDispatch();
@@ -22,12 +21,7 @@ const EditTeam = ({ visible, onCancel, team }) => {
   };
 
   return (
-    <Modal
-      title="Edit Team"
-      open={visible}
-      onOk={handleOk}
-      onCancel={onCancel}
-    >
+    <Modal title="Edit Team" open={visible} onOk={handleOk} onCancel={onCancel}>
       <Form form={form} layout="vertical">
         <Form.Item
           name="name"
@@ -39,12 +33,6 @@ const EditTeam = ({ visible, onCancel, team }) => {
       </Form>
     </Modal>
   );
-};
-
-EditTeam.propTypes = {
-  visible: PropTypes.bool.isRequired, 
-  onCancel: PropTypes.func.isRequired, 
-  team: PropTypes.object, 
 };
 
 export default EditTeam;

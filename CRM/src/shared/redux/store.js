@@ -1,8 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import userReducer from "./features/userSlice";
-// import teamReducer from "./features/teamSlice";
-// import reportReducer from "./features/reportSlice";
-// import projectReducer from "./features/projectSlice";
 import {
   FLUSH,
   REHYDRATE,
